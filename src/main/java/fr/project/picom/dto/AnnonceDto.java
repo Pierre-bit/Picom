@@ -3,8 +3,6 @@ package fr.project.picom.dto;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
@@ -48,16 +46,13 @@ public class AnnonceDto {
 	
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner le client.")
-	@ManyToOne
 	private Long idClient;
 	
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner les tranches horaires.")
-	@ManyToMany
 	private List<Long> tranchesHoraires;
 	
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner les zones.")
-	@ManyToMany
 	private List<Long> zones;
 }
