@@ -1,26 +1,18 @@
-package fr.project.picom.model;
+package fr.project.picom.dto;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
-@Entity
-@Data
+import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
-public class Arret {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+
+public class ArretDto {
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner le nom de l'arret")
 	private String nom;
@@ -35,6 +27,5 @@ public class Arret {
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner la zone")
-	@ManyToOne
-	private Zone zone;
+	private Long zone;
 }

@@ -1,39 +1,28 @@
-package fr.project.picom.model;
+package fr.project.picom.dto;
 
 import java.time.LocalDateTime;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-
-@Entity
-@Data
+import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
-public class Diffusion {
+@Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	
+public class DiffusionDto {
 	@NonNull
 	@NotNull(message = "Veuillez renseigner l'heure de diffusion")
 	private LocalDateTime dateHeureDiffusion;
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner l'annonce")
-	@ManyToOne
-	private Annonce annonce;
+	private Long annonce;
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner l'arret")
-	@ManyToOne
-	private Arret arret;
-	
+	private Long arret;
 }
