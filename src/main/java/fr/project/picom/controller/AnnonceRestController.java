@@ -9,11 +9,15 @@ import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -41,19 +45,24 @@ public class AnnonceRestController {
 	ZoneService zoneService;
 
 	@GetMapping("annonce/{id}")
-	public Annonce recupererAnnonce(Long id) {
-		return this.annonceService.getAnnonce(id);
+	public Annonce recupererAnnonce(@PathVariable("id") Long id) {
+		return annonceService.getAnnonce(id);
 	}
 
 	@GetMapping("annonces")
 	public List<Annonce> recupererAnnonces() {
-		return this.annonceService.getAnnonces();
+		return annonceService.getAnnonces();
+	}
+	
+	@GetMapping("annonces")
+	public Page<Annonce> recupererAnnonces(@PageableDefault(size = 5, page = 0, sort = "id") Pageable pageable) {
+		return annonceService.getAnnonces(pageable);
 	}
 
 	@PostMapping("annonce")
 	public Annonce postAnnonce(@RequestBody @Valid AnnonceDto annonceDto, BindingResult bindingResult) {
 		Annonce a = dtoToModel(annonceDto);
-		return this.annonceService.createAnnonce(a);
+		return annonceService.createAnnonce(a);
 	}
 
 	private Annonce dtoToModel(AnnonceDto annonceDto) {

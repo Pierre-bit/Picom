@@ -13,6 +13,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,7 @@ public class ZoneRestController {
 	ArretService arretService;
 	
 	@GetMapping("zone/{id}")
-	public Zone getZone(Long id) {
+	public Zone getZone(@PathVariable("id") Long id) {
 		return zoneService.getZone(id);
 	}
 	

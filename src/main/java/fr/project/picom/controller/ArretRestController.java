@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,7 +33,7 @@ public class ArretRestController {
 	ZoneService zoneService;
 	
 	@GetMapping("arret/{id}")
-	public Arret getArret(Long id) {
+	public Arret getArret(@PathVariable("id") Long id) {
 		return arretService.getArret(id);
 	}
 	
