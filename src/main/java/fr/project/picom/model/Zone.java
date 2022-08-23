@@ -27,7 +27,7 @@ public class Zone {
 	@NotBlank(message = "Veuillez renseigner le nom de la zone")
 	private String nom;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "zones")
 	private List<Annonce> annonces;
 	
 	@OneToMany(mappedBy = "zone")

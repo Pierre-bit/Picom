@@ -26,6 +26,6 @@ public class TrancheHoraire {
 	@NotNull(message = "Veuillez renseigner une tranche horaire")
 	private Integer debut;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "tranchesHoraires")
 	private List<Annonce> annonces;
 }

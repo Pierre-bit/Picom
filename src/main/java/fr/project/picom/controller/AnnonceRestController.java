@@ -54,8 +54,8 @@ public class AnnonceRestController {
 		return annonceService.getAnnonces();
 	}
 	
-	@GetMapping("annonces")
-	public Page<Annonce> recupererAnnonces(@PageableDefault(size = 5, page = 0, sort = "id") Pageable pageable) {
+	@GetMapping("annoncesPage")
+	public Page<Annonce> recupererPageAnnonces(@PageableDefault(size = 5, page = 0, sort = "id") Pageable pageable) {
 		return annonceService.getAnnonces(pageable);
 	}
 
