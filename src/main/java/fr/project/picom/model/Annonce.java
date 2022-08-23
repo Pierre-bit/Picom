@@ -31,13 +31,13 @@ public class Annonce {
 	
 	private String numeroCarte;
 	
-	private int anneeExpiration;
+	private Integer anneeExpiration;
 	
-	private byte moisExpiration;
+	private Byte moisExpiration;
 	
 	private String cryptogramme;
 	
-	private double RegleEnEuros;
+	private double montantRegleEnEuros;
 	
 	@ManyToOne
 	private Client client;
