@@ -2,11 +2,7 @@ package fr.project.picom.service.impl;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import fr.project.picom.dao.AnnonceDao;
 import fr.project.picom.model.Annonce;
@@ -30,7 +26,7 @@ public class AnnonceImplService implements AnnonceService {
 	}
 
 	@Override
-	public Annonce createAnnonce(@RequestBody @Valid Annonce annonce, BindingResult bindingResult) {
+	public Annonce createAnnonce(Annonce annonce) {
 		return this.annonceDao.save(annonce);
 	}
 

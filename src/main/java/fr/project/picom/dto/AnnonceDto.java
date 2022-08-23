@@ -19,10 +19,6 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AnnonceDto {
 	@NonNull
-	@NotNull(message = "Erreur date de création.")
-	private LocalDateTime dateHeureCreation;
-	
-	@NonNull
 	@NotNull(message = "Veuillez renseigner la date de début.")
 	private LocalDateTime dateHeureDebut;
 	
