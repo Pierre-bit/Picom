@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Data
@@ -20,11 +22,17 @@ public class Diffusion {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
+	@NonNull
+	@NotNull(message = "Veuillez renseigner l'heure de diffusion")
 	private LocalDateTime dateHeureDiffusion;
-	
+
+	@NonNull
+	@NotNull(message = "Veuillez renseigner l'annonce")
 	@ManyToOne
 	private Annonce annonce;
-	
+
+	@NonNull
+	@NotNull(message = "Veuillez renseigner l'arret")
 	@ManyToOne
 	private Arret arret;
 	

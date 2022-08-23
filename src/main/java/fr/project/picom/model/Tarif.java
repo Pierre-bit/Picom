@@ -5,9 +5,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Data
@@ -18,14 +20,22 @@ public class Tarif {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private Long id;
 	
-	private double prixEnEuros;
-	
+	@NonNull
+	@NotNull(message = "Veuillez renseigner un prix")
+	private Double prixEnEuros;
+
+	@NonNull
+	@NotNull(message = "Veuillez assigner un administrateur")
 	@ManyToOne
 	private Administrateur administrateur; 
-	
+
+	@NonNull
+	@NotNull(message = "Veuillez renseigner une tranche horaire")
 	@ManyToOne
 	private TrancheHoraire trancheHoraire;
-	
+
+	@NonNull
+	@NotNull(message = "Veuillez renseigner une zone")
 	@ManyToOne
 	private Zone zone;
 	

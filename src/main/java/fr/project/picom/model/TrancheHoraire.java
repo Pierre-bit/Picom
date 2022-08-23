@@ -7,9 +7,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Data
@@ -17,11 +19,13 @@ import lombok.NoArgsConstructor;
 public class TrancheHoraire {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	
-	private int debut;
-	
+
+	@NonNull
+	@NotNull(message = "Veuillez renseigner une tranche horaire")
+	private Integer debut;
+
 	@ManyToMany
 	private List<Annonce> annonces;
 }
