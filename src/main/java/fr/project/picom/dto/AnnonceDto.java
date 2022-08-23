@@ -46,7 +46,7 @@ public class AnnonceDto {
 	
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner le client.")
-	private Long idClient;
+	private Long client;
 	
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner les tranches horaires.")
