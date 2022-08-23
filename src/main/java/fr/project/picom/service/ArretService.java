@@ -1,5 +1,13 @@
 package fr.project.picom.service;
 
-public interface ArretService {
+import java.util.List;
 
+import fr.project.picom.model.Arret;
+
+public interface ArretService {
+	Arret getArret(Long id);
+	
+	List<Arret> getArrets();
+	
+	Arret createArret(Arret arret);
 }

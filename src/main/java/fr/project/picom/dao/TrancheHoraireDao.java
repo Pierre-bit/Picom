@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import fr.project.picom.model.TrancheHoraire;
 
-public interface TranchHoraireDao extends JpaRepository<TrancheHoraire, Long> {
+public interface TrancheHoraireDao extends JpaRepository<TrancheHoraire, Long> {
 
 }
