@@ -9,42 +9,66 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 @Entity
 @Data
 @NoArgsConstructor
-
 public class Annonce {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+	@NonNull
+	@NotNull(message = "Erreur date de création.")
 	private LocalDateTime dateHeureCreation;
 	
+	@NonNull
+	@NotNull(message = "Veuillez renseigner la date de début.")
 	private LocalDateTime dateHeureDebut;
 	
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner le contenu de l'annonce.")
 	private String contenu;
-	
+
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner le numéro de carte bancaire.")
 	private String numeroCarte;
+
+	@NonNull
+	@NotNull(message = "Veuillez renseigner l'année d'expiration de la carte bancaire.")
+	private Integer anneeExpiration;
 	
-	private int anneeExpiration;
-	
-	private byte moisExpiration;
-	
+	@NonNull
+	@NotNull(message = "Veuillez renseigner le mois d'expiration de la carte bancaire.")
+	private Byte moisExpiration;
+
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner le CVV de la carte bancaire.")
 	private String cryptogramme;
 	
-	private double RegleEnEuros;
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner le montant.")
+	private Double montantRegleEnEuros;
 	
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner le client.")
 	@ManyToOne
 	private Client client;
 	
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner les tranches horaires.")
 	@ManyToMany
 	private List<TrancheHoraire> tranchesHoraires;
 	
+	@NonNull
+	@NotBlank(message = "Veuillez renseigner les zones.")
 	@ManyToMany
 	private List<Zone> zones;
 	
