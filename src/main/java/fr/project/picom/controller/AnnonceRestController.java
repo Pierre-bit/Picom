@@ -61,8 +61,7 @@ public class AnnonceRestController {
 
 	@PostMapping("annonce")
 	public Annonce postAnnonce(@RequestBody @Valid AnnonceDto annonceDto, BindingResult bindingResult) {
-		Annonce a = dtoToModel(annonceDto);
-		return annonceService.createAnnonce(a);
+		return annonceService.createAnnonce(dtoToModel(annonceDto));
 	}
 
 	private Annonce dtoToModel(AnnonceDto annonceDto) {

@@ -20,9 +20,10 @@ public class SecurityConfiguration {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
-
         .authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
-
+        .formLogin()
+        .and()
+        
         // Pour la console H2 (à ne pas utiliser en prod)
         .headers().frameOptions().disable();
         

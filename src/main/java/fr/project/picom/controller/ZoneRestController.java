@@ -50,7 +50,7 @@ public class ZoneRestController {
 	
 	@PostMapping("zone")
 	public Zone postZone(@RequestBody @Valid ZoneDto zoneDto, BindingResult bindingResult) {
-		return dtoToModel(zoneDto);
+		return zoneService.createZone(dtoToModel(zoneDto));
 	}
 	
 	private Zone dtoToModel(ZoneDto zoneDto) {

@@ -1,11 +1,17 @@
 package fr.project.picom.controller;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import javax.validation.Valid;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +33,7 @@ public class ClientRestController {
 
 	private final ClientService clientService;
 
-	@GetMapping(value = "client")
+	@GetMapping(value = "client/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Client getClient(@PathVariable Long id) {
 		return clientService.recupererClient(id);
@@ -41,23 +47,26 @@ public class ClientRestController {
 		client.setPrenom(clientDto.getPrenom());
 		client.setEmail(clientDto.getEmail());
 		client.setMotDePasse(clientDto.getMotDePasse());
+		client.setNumeroDeTelephone(clientDto.getNumeroDeTelephone());
 		return clientService.enregistrerClient(client);
 	}
 
 	@DeleteMapping("client/{id}")
 	@ResponseStatus(code = HttpStatus.ACCEPTED)
-	public boolean supprimerClient(@PathVariable("id") Long id)
-	{
+	public boolean supprimerClient(@PathVariable("id") Long id) {
 		Client client = getClient(id);
-		if(client == null)
-		{
+		if (client == null) {
 			return false;
-		}
-		else
-		{
+		} else {
 			clientService.deleteClient(id);
 			return true;
 		}
 	}
 
+	@ExceptionHandler(javax.validation.ConstraintViolationException.class)
+    @ResponseStatus(code=HttpStatus.UNPROCESSABLE_ENTITY)
+    public List<String> traiterDonneesInvalidesAvecDetails(ConstraintViolationException exception) {
+        return exception.getConstraintViolations().stream().map(ConstraintViolation::getMessage).collect(Collectors.toList());
+    }
+	
 }
