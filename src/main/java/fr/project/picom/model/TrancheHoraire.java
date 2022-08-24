@@ -12,9 +12,11 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class TrancheHoraire {
 
@@ -28,4 +30,5 @@ public class TrancheHoraire {
 
 	@ManyToMany(mappedBy = "tranchesHoraires")
 	private List<Annonce> annonces;
+	
 }

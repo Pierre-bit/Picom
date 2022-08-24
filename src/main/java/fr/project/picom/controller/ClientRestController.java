@@ -27,7 +27,7 @@ public class ClientRestController {
 
 	private final ClientService clientService;
 
-	@GetMapping(value = "client")
+	@GetMapping(value = "client/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Client getClient(@PathVariable Long id) {
 		return clientService.recupererClient(id);
@@ -41,6 +41,7 @@ public class ClientRestController {
 		client.setPrenom(clientDto.getPrenom());
 		client.setEmail(clientDto.getEmail());
 		client.setMotDePasse(clientDto.getMotDePasse());
+		client.setNumeroDeTelephone(clientDto.getNumeroDeTelephone());
 		return clientService.enregistrerClient(client);
 	}
 
