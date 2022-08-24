@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -36,6 +38,7 @@ public class Diffusion {
 	@NonNull
 	@NotNull(message = "Veuillez renseigner l'arret")
 	@ManyToOne
+	@JsonIgnore
 	private Arret arret;
 	
 }

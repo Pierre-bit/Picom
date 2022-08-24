@@ -26,8 +26,7 @@ public class SecurityConfiguration {
 	        .defaultSuccessUrl("/")
 	        .and()
 	        .logout()
-	        .logoutUrl("/deconnexion")
-	        .logoutSuccessUrl("/index?notification=Au%20revoir")
+	        .logoutSuccessUrl("/")
         .and()
         
         // Pour la console H2 (à ne pas utiliser en prod)
