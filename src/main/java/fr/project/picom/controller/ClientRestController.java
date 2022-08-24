@@ -45,6 +45,7 @@ public class ClientRestController {
 	}
 
 	@DeleteMapping("client/{id}")
+	@ResponseStatus(code = HttpStatus.ACCEPTED)
 	public boolean supprimerClient(@PathVariable("id") Long id)
 	{
 		Client client = getClient(id);

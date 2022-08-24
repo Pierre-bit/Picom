@@ -38,7 +38,6 @@ public abstract class Utilisateur {
 	@Email(message="Merci de préciser une adresse email au bon format")
 	@NotBlank(message="Merci de préciser une adresse email")
 	@Column(unique=true)
-	@Pattern(regexp="^([A-Za-z0-9-])*@orsys.fr$", message="Votre adresse doit faire partie du nom de domaine orsys.fr")
 	private String email;
 	@NotBlank(message="Merci de préciser un mot de passe")
 	@NonNull

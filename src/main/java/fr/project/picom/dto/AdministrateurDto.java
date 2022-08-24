@@ -2,7 +2,6 @@ package fr.project.picom.dto;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -16,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ClientDto {
+public class AdministrateurDto {
 	
 	@NotBlank(message="{utilisateur.nom.manquant}")
 	String nom;
@@ -32,9 +31,5 @@ public class ClientDto {
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Size(min=8, message="{utilisateur.mot-de-passe.invalide}")
 	String motDePasse;
-	
-	@NotBlank(message ="{client.numeroDeTelephone.manquant}")
-	String numeroDeTelephone;
-	
 
 }

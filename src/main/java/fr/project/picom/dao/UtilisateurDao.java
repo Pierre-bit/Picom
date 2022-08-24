@@ -6,4 +6,6 @@ import fr.project.picom.model.Utilisateur;
 
 public interface UtilisateurDao extends JpaRepository<Utilisateur, Long> {
 
+	Utilisateur findByEmail(String username);
+
 }
