@@ -35,8 +35,6 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final ClientService clientService;
 	private final AdministrateurService administrateurService;
 	private static Random random = new Random();
-//	private static FakeValuesService fakeValuesService = new FakeValuesService(new Locale("fr-FR"),
-//			new RandomService());
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
 
@@ -57,7 +55,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		admin.setNom(faker.name().lastName());
 		admin.setPrenom(faker.name().firstName());
 		admin.setEmail("admin1@orsys.fr");
-		admin.setMotDePasse(passwordEncoder.encode("12345678"));
+		admin.setMotDePasse("12345678");
 		administrateurService.enregistrerAdministrateur(admin);
 	}
 
@@ -66,7 +64,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		client.setNom(faker.name().lastName());
 		client.setPrenom(faker.name().firstName());
 		client.setEmail("client1@orsys.fr");
-		client.setMotDePasse(passwordEncoder.encode("12345678"));
+		client.setMotDePasse("12345678");
 		client.setNumeroDeTelephone(faker.phoneNumber().cellPhone());
 		clientService.enregistrerClient(client);
 	}

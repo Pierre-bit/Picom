@@ -37,6 +37,7 @@ public abstract class Utilisateur {
 	private String prenom;
 	@Email(message="Merci de préciser une adresse email au bon format")
 	@NotBlank(message="Merci de préciser une adresse email")
+	@NonNull
 	@Column(unique=true)
 	private String email;
 	@NotBlank(message="Merci de préciser un mot de passe")

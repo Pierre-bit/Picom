@@ -7,6 +7,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -29,16 +31,19 @@ public class Tarif {
 	@NonNull
 	@NotNull(message = "Veuillez assigner un administrateur")
 	@ManyToOne
+	@JsonIgnore
 	private Administrateur administrateur; 
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner une tranche horaire")
 	@ManyToOne
+	@JsonIgnore
 	private TrancheHoraire trancheHoraire;
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner une zone")
 	@ManyToOne
+	@JsonIgnore
 	private Zone zone;
 	
 	

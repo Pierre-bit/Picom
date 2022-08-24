@@ -50,7 +50,7 @@ public class TarifRestController {
 	
 	
 	@PostMapping("tarif")
-	@RolesAllowed("Administrateur")
+	@RolesAllowed("ADMIN")
 	public Tarif postTarif(@RequestBody @Valid TarifDto tarifDto, BindingResult bindingResult) {
 		return tarifService.createTarif(dtoToModel(tarifDto));
 	}
