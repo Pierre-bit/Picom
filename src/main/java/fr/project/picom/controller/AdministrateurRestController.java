@@ -33,7 +33,9 @@ public class AdministrateurRestController {
 
 	private final AdministrateurService administrateurService;
 
-	@GetMapping(value = "admin/{id}")
+	
+	
+	@GetMapping(value ="admin/{id}")
 	@ResponseStatus(code = HttpStatus.OK)
 	public Administrateur getAdministrateur(@PathVariable Long id) {
 		return administrateurService.recupererAdministrateur(id);

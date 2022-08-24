@@ -1,5 +1,7 @@
 package fr.project.picom.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,9 +13,11 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Entity
 @Data
+@RequiredArgsConstructor
 @NoArgsConstructor
 public class Arret {
 	
