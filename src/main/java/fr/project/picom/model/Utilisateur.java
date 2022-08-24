@@ -24,7 +24,7 @@ import lombok.RequiredArgsConstructor;
 public abstract class Utilisateur {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotBlank(message="Merci de préciser un nom")
@@ -43,4 +43,8 @@ public abstract class Utilisateur {
 	@NonNull
 	@Size(min = 8)
 	private String motDePasse;
+	
+
+	
+	
 }
