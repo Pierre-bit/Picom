@@ -10,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -56,23 +59,26 @@ public class Annonce {
 	private String cryptogramme;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner le montant.")
+	@NotNull(message = "Veuillez renseigner le montant.")
 	private Double montantRegleEnEuros;
 
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner le client.")
+	@NotNull(message = "Veuillez renseigner le client.")
 	@ManyToOne
+	@JsonIgnore
 	private Client client;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner les tranches horaires.")
+	@NotEmpty(message = "Veuillez renseigner les tranches horaires.")
 	@ManyToMany
+	@JsonIgnore
 	private List<TrancheHoraire> tranchesHoraires;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner les zones.")
+	@NotEmpty(message = "Veuillez renseigner les zones.")
 	@ManyToMany
+	@JsonIgnore
 	private List<Zone> zones;
 	
 }

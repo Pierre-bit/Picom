@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 import lombok.AccessLevel;
@@ -41,18 +42,18 @@ public class AnnonceDto {
 	private String cryptogramme;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner le montant.")
+	@NotNull(message = "Veuillez renseigner le montant.")
 	private Double montantRegleEnEuros;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner le client.")
+	@NotNull(message = "Veuillez renseigner le client.")
 	private Long client;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner les tranches horaires.")
+	@NotEmpty(message = "Veuillez renseigner les tranches horaires.")
 	private List<Long> tranchesHoraires;
 	
 	@NonNull
-	@NotBlank(message = "Veuillez renseigner les zones.")
+	@NotEmpty(message = "Veuillez renseigner les zones.")
 	private List<Long> zones;
 }
