@@ -35,7 +35,5 @@ public class CustomAuthentificationManager implements AuthenticationManager {
 	public Authentication authenticate(Authentication authentication) throws AuthenticationException {
 		return authenticationProvider().authenticate(authentication); 		
 	}
-	
-	
 
 }

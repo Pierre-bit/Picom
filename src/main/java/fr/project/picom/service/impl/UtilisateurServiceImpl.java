@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -11,6 +12,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import fr.project.picom.dao.UtilisateurDao;
+import fr.project.picom.model.Administrateur;
 import fr.project.picom.model.Utilisateur;
 import fr.project.picom.service.UtilisateurService;
 import lombok.AllArgsConstructor;
@@ -40,10 +42,11 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
 
     private List<GrantedAuthority> getGrantedAuthorities(Utilisateur utilisateur) {
         List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-//        Set<Role> roles = utilisateur.getRoles();
-//        for (Role role : roles) {
-//        	authorities.add(new SimpleGrantedAuthority(role.getNom()));	
-//		}
+        if(utilisateur instanceof Administrateur) {
+        	authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));	
+        } else {
+        	authorities.add(new SimpleGrantedAuthority("ROLE_USER"));	
+        }
         return authorities;
     }
 

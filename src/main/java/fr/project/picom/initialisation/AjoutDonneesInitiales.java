@@ -2,16 +2,12 @@ package fr.project.picom.initialisation;
 
 import java.util.List;
 import java.util.Locale;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import com.github.javafaker.Faker;
-import com.github.javafaker.service.FakeValuesService;
-import com.github.javafaker.service.RandomService;
 
 import fr.project.picom.dao.ArretDao;
 import fr.project.picom.dao.TrancheHoraireDao;
@@ -34,13 +30,10 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final TrancheHoraireDao trancheHoraireDao;
 	private final ClientService clientService;
 	private final AdministrateurService administrateurService;
-	private static Random random = new Random();
 //	private static FakeValuesService fakeValuesService = new FakeValuesService(new Locale("fr-FR"),
 //			new RandomService());
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
-
-	private final PasswordEncoder passwordEncoder;
 
 	@Override
 	public void run(String... args) throws Exception {
@@ -57,7 +50,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		admin.setNom(faker.name().lastName());
 		admin.setPrenom(faker.name().firstName());
 		admin.setEmail("admin1@orsys.fr");
-		admin.setMotDePasse(passwordEncoder.encode("12345678"));
+		admin.setMotDePasse("12345678");
 		administrateurService.enregistrerAdministrateur(admin);
 	}
 
@@ -66,7 +59,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		client.setNom(faker.name().lastName());
 		client.setPrenom(faker.name().firstName());
 		client.setEmail("client1@orsys.fr");
-		client.setMotDePasse(passwordEncoder.encode("12345678"));
+		client.setMotDePasse("12345678");
 		client.setNumeroDeTelephone(faker.phoneNumber().cellPhone());
 		clientService.enregistrerClient(client);
 	}

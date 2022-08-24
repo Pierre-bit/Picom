@@ -22,6 +22,12 @@ public class SecurityConfiguration {
         http.csrf().disable()
         .authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
         .formLogin()
+	        .loginProcessingUrl("/login")
+	        .defaultSuccessUrl("/")
+	        .and()
+	        .logout()
+	        .logoutUrl("/deconnexion")
+	        .logoutSuccessUrl("/index?notification=Au%20revoir")
         .and()
         
         // Pour la console H2 (à ne pas utiliser en prod)
