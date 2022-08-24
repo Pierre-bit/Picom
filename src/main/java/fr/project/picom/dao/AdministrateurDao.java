@@ -6,4 +6,6 @@ import fr.project.picom.model.Administrateur;
 
 public interface AdministrateurDao extends JpaRepository<Administrateur, Long>{
 
+	Administrateur findByEmail(String username);
+
 }
