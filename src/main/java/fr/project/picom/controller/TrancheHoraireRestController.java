@@ -46,6 +46,7 @@ public class TrancheHoraireRestController {
 	}
 
 	@PostMapping("/trancheH")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public TrancheHoraire postTh(@RequestBody @Valid TrancheHoraireDto trancheHoraireDto, BindingResult bindingResult) {
 		return trancheHoraireService.createTrancheHoraire(dtoToModel(trancheHoraireDto));
 	}

@@ -45,7 +45,4 @@ public abstract class Utilisateur {
 	@Size(min = 8)
 	private String motDePasse;
 	
-
-	
-	
 }

@@ -26,11 +26,4 @@ public class Client extends Utilisateur{
 	@OneToMany(mappedBy = "client")
 	private List<Annonce> annonces;
 
-
-
-	
-	
-	
-	
-
 }

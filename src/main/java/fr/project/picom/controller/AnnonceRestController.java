@@ -60,6 +60,7 @@ public class AnnonceRestController {
 	}
 
 	@PostMapping("annonce")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Annonce postAnnonce(@RequestBody @Valid AnnonceDto annonceDto, BindingResult bindingResult) {
 		return annonceService.createAnnonce(dtoToModel(annonceDto));
 	}
