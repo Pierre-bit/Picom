@@ -30,8 +30,6 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final TrancheHoraireDao trancheHoraireDao;
 	private final ClientService clientService;
 	private final AdministrateurService administrateurService;
-//	private static FakeValuesService fakeValuesService = new FakeValuesService(new Locale("fr-FR"),
-//			new RandomService());
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
 

@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonProperty.Access;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.experimental.FieldDefaults;
 
 @NoArgsConstructor
@@ -30,6 +31,7 @@ public class AdministrateurDto {
 	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Size(min=8, message="{utilisateur.mot-de-passe.invalide}")
+	@NonNull
 	String motDePasse;
 
 }
