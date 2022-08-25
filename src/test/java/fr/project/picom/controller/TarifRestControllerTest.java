@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -34,13 +35,8 @@ class TarifRestControllerTest {
 
 	@Test
 	@Order(1)
+	@WithMockUser(roles = "ADMIN")
 	void testerAjouterTarif() throws Exception {
-		MockHttpServletRequestBuilder requestLoginBuilder = MockMvcRequestBuilders.post("/login")
-				.param("username", "admin1@orsys.fr")
-				.param("password", "12345678")
-				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-		mockMvc.perform(requestLoginBuilder).andDo(MockMvcResultHandlers.print());
-		
 		t.setPrixEnEuros(100D);
 		t.setAdministrateur(2L);
 		t.setTrancheHoraire(1L);
@@ -48,31 +44,26 @@ class TarifRestControllerTest {
 
 		String tarif = om.writeValueAsString(t);
 
-		requestLoginBuilder = MockMvcRequestBuilders.post("/api/tarif").content(tarif)
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/tarif").content(tarif)
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-		mockMvc.perform(requestLoginBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.prixEnEuros").value(100D))
+		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.prixEnEuros").value(100D))
 				.andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
 	}
 
-	// @Test
-	// @Order(2)
-	// void recupererLesZone() throws Exception {
-	// MockHttpServletRequestBuilder requestBuilder =
-	// MockMvcRequestBuilders.get("/api/zones/")
-	// .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-	// mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6))
-	// .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-	// }
-	//
-	// @Test
-	// @Order(3)
-	// void recupererLaZone() throws Exception {
-	// MockHttpServletRequestBuilder requestBuilder =
-	// MockMvcRequestBuilders.get("/api/zone/6")
-	// .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-	// mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.nom").value("Zone
-	// test"))
-	// .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-	// }
-
+	@Test
+	@Order(2)
+	void testerRecupererTarif() throws Exception {
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/tarifs")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(1))
+				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+	}
+	
+	@Test
+	@Order(3)
+	void recupererLeTarif() throws Exception {
+		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/tarif/1")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+		mockMvc.perform(requestBuilder).andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+	}
 }

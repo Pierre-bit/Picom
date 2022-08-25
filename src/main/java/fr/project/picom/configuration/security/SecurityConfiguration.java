@@ -25,7 +25,7 @@ public class SecurityConfiguration {
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.csrf().disable()
         .authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
-        .formLogin().permitAll()
+        .formLogin()
         .successHandler(authenticationSuccessHandler())
         .failureHandler(authenticationFailureHandler())
         .loginProcessingUrl("/login")
