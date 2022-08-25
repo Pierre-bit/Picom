@@ -23,10 +23,10 @@ public class SecurityConfiguration {
     
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable()
+        http.csrf().disable().cors().and()
         .authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
 
-        .formLogin().permitAll()
+        .formLogin()
         .successHandler(authenticationSuccessHandler())
         .failureHandler(authenticationFailureHandler())
         .loginProcessingUrl("/login")
