@@ -35,6 +35,12 @@ class TarifRestControllerTest {
 	@Test
 	@Order(1)
 	void testerAjouterTarif() throws Exception {
+		MockHttpServletRequestBuilder requestLoginBuilder = MockMvcRequestBuilders.post("/login")
+				.param("username", "admin1@orsys.fr")
+				.param("password", "12345678")
+				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+		mockMvc.perform(requestLoginBuilder).andDo(MockMvcResultHandlers.print());
+		
 		t.setPrixEnEuros(100D);
 		t.setAdministrateur(2L);
 		t.setTrancheHoraire(1L);
@@ -47,23 +53,26 @@ class TarifRestControllerTest {
 		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.prixEnEuros").value(100D))
 				.andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
 	}
-	
-//	@Test
-//	@Order(2)
-//	void recupererLesZone() throws Exception {
-//		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/zones/")
-//				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-//		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6))
-//				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-//	}
-//	
-//	@Test
-//	@Order(3)
-//	void recupererLaZone() throws Exception {
-//		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.get("/api/zone/6")
-//				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-//		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.nom").value("Zone test"))
-//				.andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
-//	}
+
+	// @Test
+	// @Order(2)
+	// void recupererLesZone() throws Exception {
+	// MockHttpServletRequestBuilder requestBuilder =
+	// MockMvcRequestBuilders.get("/api/zones/")
+	// .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+	// mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(6))
+	// .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+	// }
+	//
+	// @Test
+	// @Order(3)
+	// void recupererLaZone() throws Exception {
+	// MockHttpServletRequestBuilder requestBuilder =
+	// MockMvcRequestBuilders.get("/api/zone/6")
+	// .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
+	// mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.nom").value("Zone
+	// test"))
+	// .andExpect(status().isOk()).andDo(MockMvcResultHandlers.print());
+	// }
 
 }
