@@ -27,7 +27,6 @@ public class ClientDto {
 	@NotBlank(message="Merci de préciser une adresse email")
 	String email;
 	
-	
 	@JsonProperty(access = Access.WRITE_ONLY)
 	@Size(min=8, message="{utilisateur.mot-de-passe.invalide}")
 	String motDePasse;

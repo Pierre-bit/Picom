@@ -43,6 +43,7 @@ public class ArretRestController {
 	}
 	
 	@PostMapping("arret")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Arret createArret(@RequestBody @Valid ArretDto arretDto, BindingResult bindingResult) {
 		return arretService.createArret(dtoToModel(arretDto));
 	}

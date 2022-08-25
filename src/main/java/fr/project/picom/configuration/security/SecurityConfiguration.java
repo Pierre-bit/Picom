@@ -26,9 +26,9 @@ public class SecurityConfiguration {
 	        .defaultSuccessUrl("/")
 	        .and()
 	        .logout()
+	        .deleteCookies("JSESSIONID")
 	        .logoutSuccessUrl("/")
         .and()
-        
         // Pour la console H2 (à ne pas utiliser en prod)
         .headers().frameOptions().disable();
         

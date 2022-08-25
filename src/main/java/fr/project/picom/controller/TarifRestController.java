@@ -50,6 +50,7 @@ public class TarifRestController {
 	
 	@PostMapping("tarif")
 	@RolesAllowed("ADMIN")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Tarif postTarif(@RequestBody @Valid TarifDto tarifDto, BindingResult bindingResult) {
 		return tarifService.createTarif(dtoToModel(tarifDto));
 	}

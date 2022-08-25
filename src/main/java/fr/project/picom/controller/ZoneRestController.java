@@ -49,6 +49,7 @@ public class ZoneRestController {
 	}
 	
 	@PostMapping("zone")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Zone postZone(@RequestBody @Valid ZoneDto zoneDto, BindingResult bindingResult) {
 		return zoneService.createZone(dtoToModel(zoneDto));
 	}

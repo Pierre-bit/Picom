@@ -1,5 +1,7 @@
 package fr.project.picom.initialisation;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -30,8 +32,9 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final TrancheHoraireDao trancheHoraireDao;
 	private final ClientService clientService;
 	private final AdministrateurService administrateurService;
-//	private static FakeValuesService fakeValuesService = new FakeValuesService(new Locale("fr-FR"),
-//			new RandomService());
+	// private static FakeValuesService fakeValuesService = new
+	// FakeValuesService(new Locale("fr-FR"),
+	// new RandomService());
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
 
@@ -75,27 +78,34 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 
 	private void ajouterArret() {
 		if (arretDao.count() == 0) {
-			for (int i = 0; i<20; i++)
-			{
+			List<Integer> listZones = new ArrayList<>();
+			for (int i = 0; i < 6; i++) {
+				for (int j = 0; j < 5; j++) {
+					listZones.add(j);
+				}
+			}
+			Collections.shuffle(listZones);
+
+			for (int i = 0; i < 20; i++) {
 				List<Zone> zones = zoneDao.findAll();
 				Arret arret = new Arret();
 				arret.setNom(faker.name().firstName());
 				arret.setLongitude(faker.number().randomDouble(6, 1, 60));
 				arret.setLatitude(faker.number().randomDouble(6, 1, 60));
-				arret.setZone(zones.get(faker.number().numberBetween(1, 5)));
+				arret.setZone(zones.get(listZones.get(i)));
 				arretDao.save(arret);
 			}
-			
+
 		}
 	}
 
 	private void ajouterZones() {
 		if (zoneDao.count() == 0) {
-			zoneDao.save(new Zone("gare"));
-			zoneDao.save(new Zone("gare1"));
-			zoneDao.save(new Zone("gare2"));
-			zoneDao.save(new Zone("gare3"));
-			zoneDao.save(new Zone("gare4"));
+			zoneDao.save(new Zone(faker.address().cityName()));
+			zoneDao.save(new Zone(faker.address().cityName()));
+			zoneDao.save(new Zone(faker.address().cityName()));
+			zoneDao.save(new Zone(faker.address().cityName()));
+			zoneDao.save(new Zone(faker.address().cityName()));
 
 		}
 	}

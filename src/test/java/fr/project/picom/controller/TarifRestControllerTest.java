@@ -48,9 +48,9 @@ class TarifRestControllerTest {
 
 		String tarif = om.writeValueAsString(t);
 
-		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.post("/api/tarif").content(tarif)
+		requestLoginBuilder = MockMvcRequestBuilders.post("/api/tarif").content(tarif)
 				.contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON);
-		mockMvc.perform(requestBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.prixEnEuros").value(100D))
+		mockMvc.perform(requestLoginBuilder).andExpect(MockMvcResultMatchers.jsonPath("$.prixEnEuros").value(100D))
 				.andExpect(status().isCreated()).andDo(MockMvcResultHandlers.print());
 	}
 

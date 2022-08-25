@@ -45,6 +45,7 @@ public class DiffusionRestController {
 	}
 	
 	@PostMapping("diffusion")
+	@ResponseStatus(code = HttpStatus.CREATED)
 	public Diffusion postDiffusion(@RequestBody @Valid DiffusionDto diffusionDto, BindingResult bindingResult) {
 		return diffusionService.createDiffusion(dtoToModel(diffusionDto));
 	}
