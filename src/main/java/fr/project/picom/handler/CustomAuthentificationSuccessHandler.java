@@ -1,7 +1,6 @@
 package fr.project.picom.handler;
 
 import java.io.IOException;
-import java.security.Principal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -24,7 +23,8 @@ public class CustomAuthentificationSuccessHandler implements AuthenticationSucce
 			Authentication authentication) throws IOException, ServletException {
 		response.setStatus(HttpStatus.ACCEPTED.value());
 		Map<String, Object> hashMap = new HashMap<>();
-		hashMap.put("user", authentication.getPrincipal());
+		hashMap.put("role", authentication.getAuthorities());
+		hashMap.put("user", authentication.getName());
 		response.getOutputStream().println(om.writeValueAsString(hashMap));
 	}
 
