@@ -8,9 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import fr.project.picom.handler.CustomAuthentificationFailureHandler;
 import fr.project.picom.handler.CustomAuthentificationSuccessHandler;
+import fr.project.picom.handler.CustomLogoutSuccessHandler;
 import fr.project.picom.security.CustomAuthentificationManager;
 import lombok.AllArgsConstructor;
 
@@ -31,8 +33,7 @@ public class SecurityConfiguration {
 		.loginProcessingUrl("/login")
 		.and()
 		.logout()
-		.logoutUrl("/deconnexion")
-		.logoutSuccessUrl("/index?notification=Au%20revoir")
+		.logoutSuccessHandler(logoutSuccessHandler())
 		.and()
 		// Pour la console H2 (à ne pas utiliser en prod)
 		.headers().frameOptions().disable();
@@ -47,6 +48,9 @@ public class SecurityConfiguration {
 	private AuthenticationSuccessHandler authenticationSuccessHandler() {
 		return new CustomAuthentificationSuccessHandler();
 	}
-
+	
+	private LogoutSuccessHandler logoutSuccessHandler() {
+		return new CustomLogoutSuccessHandler();
+	}
 
 }
