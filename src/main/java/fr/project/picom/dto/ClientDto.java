@@ -18,11 +18,11 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ClientDto {
 	
-	@NotBlank(message="{utilisateur.nom.manquant}")
+	@NotBlank(message="Merci de renseigner votre nom")
 	@NonNull
 	String nom;
 	
-	@NotBlank(message="{utilisateur.prenom.manquant}")
+	@NotBlank(message="Merci de renseigner votre prénom")
 	@NonNull
 	String prenom;
 	
@@ -30,13 +30,14 @@ public class ClientDto {
 	@NotBlank(message="Merci de préciser une adresse email")
 	@NonNull
 	String email;
-	
+
+	@NotBlank(message = "Merci de préciser un mot de passe")
 	@JsonProperty(access = Access.WRITE_ONLY)
-	@Size(min=8, message="{utilisateur.mot-de-passe.invalide}")
+	@Size(min=8, message="Le mot de passe doit contenir 8 caractère minimum")
 	@NonNull
 	String motDePasse;
 	
-	@NotBlank(message ="{client.numeroDeTelephone.manquant}")
+	@NotBlank(message ="Veuillez renseigner le numéro de téléphone.")
 	@NonNull
 	String numeroDeTelephone;
 	
