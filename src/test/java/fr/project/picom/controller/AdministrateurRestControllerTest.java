@@ -20,15 +20,11 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.project.picom.dto.AdministrateurDto;
-import fr.project.picom.service.AdministrateurService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AdministrateurRestControllerTest {
-
-	@Autowired
-	private AdministrateurService administrateurService;
+class AdministrateurRestControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -55,7 +51,7 @@ public class AdministrateurRestControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.prenom").value(admin.getPrenom()))
 				.andExpect(MockMvcResultMatchers.jsonPath("$.email").isNotEmpty()).andDo(MockMvcResultHandlers.print());
 	}
-	
+
 	@Test
 	@Order(2)
 	void recupererAdministrateur() throws Exception {
@@ -73,7 +69,5 @@ public class AdministrateurRestControllerTest {
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/admin/3");
 		mockMvc.perform(requestBuilder).andExpect(status().isAccepted()).andDo(MockMvcResultHandlers.print());
 	}
-
-	
 
 }

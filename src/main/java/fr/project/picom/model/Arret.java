@@ -8,8 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -20,11 +18,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Arret {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NonNull
 	@NotBlank(message = "Veuillez renseigner le nom de l'arret")
 	private String nom;
@@ -37,7 +35,6 @@ public class Arret {
 	@NotNull(message = "Veuillez renseigner la latitude")
 	private Double latitude;
 
-	@JsonIgnore
 	@NonNull
 	@NotNull(message = "Veuillez renseigner la zone")
 	@ManyToOne

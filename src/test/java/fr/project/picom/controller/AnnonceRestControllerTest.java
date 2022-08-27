@@ -27,7 +27,7 @@ import fr.project.picom.dto.AnnonceDto;
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class AnnonceRestControllerTest {
+class AnnonceRestControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;

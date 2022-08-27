@@ -11,6 +11,9 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,25 +27,29 @@ import lombok.RequiredArgsConstructor;
 public abstract class Utilisateur {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotBlank(message="Merci de préciser un nom")
+
+	@NotBlank(message = "Merci de préciser un nom")
 	@NonNull
 	@Size(min = 3)
 	private String nom;
-	@NotBlank(message="Merci de préciser un prénom")
+
+	@NotBlank(message = "Merci de préciser un prénom")
 	@NonNull
-	@Size(min= 3)
+	@Size(min = 3)
 	private String prenom;
-	@Email(message="Merci de préciser une adresse email au bon format")
-	@NotBlank(message="Merci de préciser une adresse email")
+
+	@Email(message = "Merci de préciser une adresse email au bon format")
+	@NotBlank(message = "Merci de préciser une adresse email")
 	@NonNull
-	@Column(unique=true)
+	@Column(unique = true)
 	private String email;
-	@NotBlank(message="Merci de préciser un mot de passe")
+
+	@NotBlank(message = "Merci de préciser un mot de passe")
 	@NonNull
-	@Size(min = 8)
+	@Size(min = 8, message = "Le mot de passe doit contenir 8 caractère minimum")
+	@JsonProperty(access = Access.WRITE_ONLY)
 	private String motDePasse;
-	
+
 }

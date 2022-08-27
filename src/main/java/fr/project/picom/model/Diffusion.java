@@ -23,9 +23,9 @@ import lombok.RequiredArgsConstructor;
 public class Diffusion {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NonNull
 	@NotNull(message = "Veuillez renseigner l'heure de diffusion")
 	private LocalDateTime dateHeureDiffusion;
@@ -40,5 +40,5 @@ public class Diffusion {
 	@ManyToOne
 	@JsonIgnore
 	private Arret arret;
-	
+
 }

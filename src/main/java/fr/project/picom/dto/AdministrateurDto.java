@@ -17,21 +17,24 @@ import lombok.experimental.FieldDefaults;
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class AdministrateurDto {
-	
-	@NotBlank(message="{utilisateur.nom.manquant}")
-	String nom;
-	
-	@NotBlank(message="{utilisateur.prenom.manquant}")
-	String prenom;
-	
-	@Email(message="Merci de préciser une adresse email au bon format")
-	@NotBlank(message="Merci de préciser une adresse email")
-	String email;
-	
-	
-	@JsonProperty(access = Access.WRITE_ONLY)
-	@Size(min=8, message="{utilisateur.mot-de-passe.invalide}")
+
 	@NonNull
+	@NotBlank(message = "Merci de préciser un nom")
+	String nom;
+
+	@NonNull
+	@NotBlank(message = "Merci de préciser un prénom")
+	String prenom;
+
+	@NonNull
+	@Email(message = "Merci de préciser une adresse email au bon format")
+	@NotBlank(message = "Merci de préciser une adresse email")
+	String email;
+
+	@JsonProperty(access = Access.WRITE_ONLY)
+	@Size(min = 8, message = "Le mot de passe doit contenir 8 caractère minimum")
+	@NonNull
+	@NotBlank(message = "Merci de préciser un mot de passe")
 	String motDePasse;
 
 }

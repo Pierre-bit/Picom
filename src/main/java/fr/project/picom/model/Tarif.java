@@ -7,8 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -19,11 +17,11 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @NoArgsConstructor
 public class Tarif {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	@NonNull
 	@NotNull(message = "Veuillez renseigner un prix")
 	private Double prixEnEuros;
@@ -31,19 +29,16 @@ public class Tarif {
 	@NonNull
 	@NotNull(message = "Veuillez assigner un administrateur")
 	@ManyToOne
-	@JsonIgnore
-	private Administrateur administrateur; 
+	private Administrateur administrateur;
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner une tranche horaire")
 	@ManyToOne
-	@JsonIgnore
 	private TrancheHoraire trancheHoraire;
 
 	@NonNull
 	@NotNull(message = "Veuillez renseigner une zone")
 	@ManyToOne
-	@JsonIgnore
 	private Zone zone;
 
 }

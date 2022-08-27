@@ -9,6 +9,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -28,6 +30,7 @@ public class TrancheHoraire {
 	@NotNull(message = "Veuillez renseigner une tranche horaire")
 	private Integer debut;
 
+	@JsonIgnore
 	@ManyToMany(mappedBy = "tranchesHoraires")
 	private List<Annonce> annonces;
 	

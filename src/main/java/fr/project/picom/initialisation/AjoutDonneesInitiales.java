@@ -32,7 +32,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final TrancheHoraireDao trancheHoraireDao;
 	private final ClientService clientService;
 	private final AdministrateurService administrateurService;
-	
+
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
 
@@ -43,7 +43,6 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		ajouterTranchesHoraires();
 		ajouterClient();
 		ajouterAdmin();
-
 	}
 
 	private void ajouterAdmin() {
@@ -104,7 +103,6 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 			zoneDao.save(new Zone(faker.address().cityName()));
 			zoneDao.save(new Zone(faker.address().cityName()));
 			zoneDao.save(new Zone(faker.address().cityName()));
-
 		}
 	}
 }

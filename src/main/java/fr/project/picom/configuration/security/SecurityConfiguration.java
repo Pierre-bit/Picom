@@ -20,25 +20,25 @@ public class SecurityConfiguration {
 
 	private UserDetailsService userDetailsService;
 	private PasswordEncoder passwordEncoder;
-    
-    @Bean
-    SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf().disable().cors().and()
-        .authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
-        .formLogin()
-        .successHandler(authenticationSuccessHandler())
-        .failureHandler(authenticationFailureHandler())
-        .loginProcessingUrl("/login")
-        .and()
-        .logout()
-        .logoutUrl("/deconnexion")
-        .logoutSuccessUrl("/index?notification=Au%20revoir")
-        .and()
-        // Pour la console H2 (à ne pas utiliser en prod)
-        .headers().frameOptions().disable();
-        
-       return http.build();
-    }
+
+	@Bean
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http.csrf().disable().cors().and()
+		.authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
+		.formLogin()
+		.successHandler(authenticationSuccessHandler())
+		.failureHandler(authenticationFailureHandler())
+		.loginProcessingUrl("/login")
+		.and()
+		.logout()
+		.logoutUrl("/deconnexion")
+		.logoutSuccessUrl("/index?notification=Au%20revoir")
+		.and()
+		// Pour la console H2 (à ne pas utiliser en prod)
+		.headers().frameOptions().disable();
+
+		return http.build();
+	}
 
 	private AuthenticationFailureHandler authenticationFailureHandler() {
 		return new CustomAuthentificationFailureHandler();
@@ -47,6 +47,6 @@ public class SecurityConfiguration {
 	private AuthenticationSuccessHandler authenticationSuccessHandler() {
 		return new CustomAuthentificationSuccessHandler();
 	}
-    
-    
+
+
 }

@@ -20,15 +20,11 @@ import com.fasterxml.jackson.databind.MapperFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import fr.project.picom.dto.ClientDto;
-import fr.project.picom.service.ClientService;
 
 @SpringBootTest
 @AutoConfigureMockMvc
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class ClientRestControllerTest {
-
-	@Autowired
-	private ClientService clientService;
+class ClientRestControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -58,7 +54,7 @@ public class ClientRestControllerTest {
 				.andExpect(MockMvcResultMatchers.jsonPath("$.numeroDeTelephone").value(cl.getNumeroDeTelephone()))
 				.andDo(MockMvcResultHandlers.print());
 	}
-	
+
 	@Test
 	@Order(2)
 	void recupererClient() throws Exception {
@@ -77,7 +73,5 @@ public class ClientRestControllerTest {
 		MockHttpServletRequestBuilder requestBuilder = MockMvcRequestBuilders.delete("/api/client/3");
 		mockMvc.perform(requestBuilder).andExpect(status().isAccepted()).andDo(MockMvcResultHandlers.print());
 	}
-
-	
 
 }
