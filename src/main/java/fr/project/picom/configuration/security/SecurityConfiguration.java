@@ -26,30 +26,28 @@ public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors().and()
-		.authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
-		.formLogin()
-		.successHandler(authenticationSuccessHandler())
-		.failureHandler(authenticationFailureHandler())
-		.loginProcessingUrl("/login")
-		.and()
-		.logout()
-		.logoutSuccessHandler(logoutSuccessHandler())
-		.and()
-		// Pour la console H2 (à ne pas utiliser en prod)
-		.headers().frameOptions().disable();
+				.authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
+				.formLogin().successHandler(authenticationSuccessHandler())
+				.failureHandler(authenticationFailureHandler()).loginProcessingUrl("/login").and().logout()
+				.logoutSuccessHandler(logoutSuccessHandler()).and()
+				// Pour la console H2 (à ne pas utiliser en prod)
+				.headers().frameOptions().disable();
 
 		return http.build();
 	}
 
-	private AuthenticationFailureHandler authenticationFailureHandler() {
+	@Bean
+	AuthenticationFailureHandler authenticationFailureHandler() {
 		return new CustomAuthentificationFailureHandler();
 	}
 
-	private AuthenticationSuccessHandler authenticationSuccessHandler() {
+	@Bean
+	AuthenticationSuccessHandler authenticationSuccessHandler() {
 		return new CustomAuthentificationSuccessHandler();
 	}
-	
-	private LogoutSuccessHandler logoutSuccessHandler() {
+
+	@Bean
+	LogoutSuccessHandler logoutSuccessHandler() {
 		return new CustomLogoutSuccessHandler();
 	}
 
