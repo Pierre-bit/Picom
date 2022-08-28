@@ -50,5 +50,10 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
         return authorities;
     }
 
+	@Override
+	public Utilisateur getUtilisateurByEmail(String email) {
+		return utilisateurDao.findByEmail(email);
+	}
+
 	
 }

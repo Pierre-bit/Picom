@@ -1,5 +1,7 @@
 package fr.project.picom.service;
 
-public interface UtilisateurService {
+import fr.project.picom.model.Utilisateur;
 
+public interface UtilisateurService {
+	Utilisateur getUtilisateurByEmail(String email);
 }
