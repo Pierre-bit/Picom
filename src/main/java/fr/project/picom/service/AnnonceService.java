@@ -6,6 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 import fr.project.picom.model.Annonce;
+import fr.project.picom.model.Utilisateur;
 
 public interface AnnonceService {
 	Annonce getAnnonce(Long id);
@@ -15,4 +16,6 @@ public interface AnnonceService {
 	Annonce createAnnonce(Annonce annonce);
 	
 	Page<Annonce> getAnnonces(Pageable pageable);
+	
+	List<Annonce> getAnnonceByUti(Utilisateur utilisateur);
 }

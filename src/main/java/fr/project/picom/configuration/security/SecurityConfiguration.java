@@ -8,9 +8,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
 
 import fr.project.picom.handler.CustomAuthentificationFailureHandler;
 import fr.project.picom.handler.CustomAuthentificationSuccessHandler;
+import fr.project.picom.handler.CustomLogoutSuccessHandler;
 import fr.project.picom.security.CustomAuthentificationManager;
 import lombok.AllArgsConstructor;
 
@@ -24,29 +26,29 @@ public class SecurityConfiguration {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.csrf().disable().cors().and()
-		.authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
-		.formLogin()
-		.successHandler(authenticationSuccessHandler())
-		.failureHandler(authenticationFailureHandler())
-		.loginProcessingUrl("/login")
-		.and()
-		.logout()
-		.logoutUrl("/deconnexion")
-		.logoutSuccessUrl("/index?notification=Au%20revoir")
-		.and()
-		// Pour la console H2 (à ne pas utiliser en prod)
-		.headers().frameOptions().disable();
+				.authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
+				.formLogin().successHandler(authenticationSuccessHandler())
+				.failureHandler(authenticationFailureHandler()).loginProcessingUrl("/login").and().logout()
+				.logoutSuccessHandler(logoutSuccessHandler()).logoutUrl("/deconnexion")
+				.logoutSuccessUrl("/index?notification=Au%20revoir").and()
+				// Pour la console H2 (à ne pas utiliser en prod)
+				.headers().frameOptions().disable();
 
 		return http.build();
 	}
 
-	private AuthenticationFailureHandler authenticationFailureHandler() {
+	@Bean
+	AuthenticationFailureHandler authenticationFailureHandler() {
 		return new CustomAuthentificationFailureHandler();
 	}
 
-	private AuthenticationSuccessHandler authenticationSuccessHandler() {
+	@Bean
+	AuthenticationSuccessHandler authenticationSuccessHandler() {
 		return new CustomAuthentificationSuccessHandler();
 	}
-
+	@Bean
+	LogoutSuccessHandler logoutSuccessHandler() {
+		return new CustomLogoutSuccessHandler();
+	}
 
 }

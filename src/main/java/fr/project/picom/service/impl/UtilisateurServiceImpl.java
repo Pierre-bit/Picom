@@ -50,5 +50,10 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
         return authorities;
     }
 
+	@Override
+	public Utilisateur recupUser(Long id) {
+		return utilisateurDao.findById(id).orElse(null);
+	}
+
 	
 }

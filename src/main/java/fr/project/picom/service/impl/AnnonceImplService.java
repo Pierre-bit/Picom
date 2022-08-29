@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import fr.project.picom.dao.AnnonceDao;
 import fr.project.picom.exception.ElementNonTrouveException;
 import fr.project.picom.model.Annonce;
+import fr.project.picom.model.Utilisateur;
 import fr.project.picom.service.AnnonceService;
 import lombok.AllArgsConstructor;
 
@@ -37,6 +38,11 @@ public class AnnonceImplService implements AnnonceService {
 	@Override
 	public Page<Annonce> getAnnonces(Pageable pageable) {
 		return annonceDao.findAll(pageable);
+	}
+
+	@Override
+	public List<Annonce> getAnnonceByUti(Utilisateur utilisateur) {
+		return annonceDao.findByClient(utilisateur);
 	}
 
 }
