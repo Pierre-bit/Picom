@@ -38,7 +38,6 @@ public class Diffusion {
 	@NonNull
 	@NotNull(message = "Veuillez renseigner l'arret")
 	@ManyToOne
-	@JsonIgnore
 	private Arret arret;
 
 }
