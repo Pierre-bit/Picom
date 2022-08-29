@@ -1,5 +1,6 @@
 package fr.project.picom.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,6 +65,17 @@ public class TarifRestController {
 	@ResponseStatus(code = HttpStatus.CREATED)
 	public Tarif postTarif(@RequestBody @Valid TarifDto tarifDto, BindingResult bindingResult) {
 		return tarifService.createTarif(dtoToModel(tarifDto));
+	}
+	
+	@PostMapping("tarifs")
+	@RolesAllowed("ADMIN")
+	@ResponseStatus(code = HttpStatus.CREATED)
+	public List<Tarif> postTarifs(@RequestBody @Valid List<TarifDto> tarifsDto, BindingResult bindingResult) {
+		List<Tarif> list = new ArrayList<>();
+		tarifsDto.forEach(i -> {
+			list.add(dtoToModel(i));
+		});
+		return tarifService.createMultipleTarifs(list);
 	}
 	
 	private Tarif dtoToModel(TarifDto tarifDto) {

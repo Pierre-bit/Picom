@@ -14,4 +14,6 @@ public interface TarifService {
 	Tarif createTarif(Tarif tarif);
 	
 	Tarif getTarifByThAndZone(TrancheHoraire th, Zone zone);
+	
+	List<Tarif> createMultipleTarifs(List<Tarif> tarifs);
 }

@@ -38,4 +38,9 @@ public class TarifServiceImpl implements TarifService {
 	public Tarif getTarifByThAndZone(TrancheHoraire th, Zone zone) {
 		return tarifDao.findByTrancheHoraireAndZone(th, zone);
 	}
+
+	@Override
+	public List<Tarif> createMultipleTarifs(List<Tarif> tarifs) {
+		return tarifDao.saveAll(tarifs);
+	}
 }
