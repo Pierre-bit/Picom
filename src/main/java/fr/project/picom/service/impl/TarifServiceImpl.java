@@ -38,5 +38,4 @@ public class TarifServiceImpl implements TarifService {
 	public Tarif getTarifByThAndZone(TrancheHoraire th, Zone zone) {
 		return tarifDao.findByTrancheHoraireAndZone(th, zone);
 	}
-
 }
