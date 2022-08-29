@@ -28,10 +28,12 @@ import org.springframework.web.bind.annotation.RestController;
 import fr.project.picom.dto.AnnonceDto;
 import fr.project.picom.model.Annonce;
 import fr.project.picom.model.TrancheHoraire;
+import fr.project.picom.model.Utilisateur;
 import fr.project.picom.model.Zone;
 import fr.project.picom.service.AnnonceService;
 import fr.project.picom.service.ClientService;
 import fr.project.picom.service.TrancheHoraireService;
+import fr.project.picom.service.UtilisateurService;
 import fr.project.picom.service.ZoneService;
 import lombok.AllArgsConstructor;
 
@@ -45,6 +47,7 @@ public class AnnonceRestController {
 	ClientService clientService;
 	TrancheHoraireService trancheHoraireService;
 	ZoneService zoneService;
+	UtilisateurService utilisateurService;
 
 	@GetMapping("annonce/{id}")
 	public Annonce recupererAnnonce(@PathVariable("id") Long id) {
@@ -59,6 +62,13 @@ public class AnnonceRestController {
 	@GetMapping("annoncesPage")
 	public Page<Annonce> recupererPageAnnonces(@PageableDefault(size = 5, page = 0, sort = "id") Pageable pageable) {
 		return annonceService.getAnnonces(pageable);
+	}
+	
+	@GetMapping("annonceClient/{id}")
+	public List<Annonce> recupererAnnonceClient(@PathVariable("id") Long id)
+	{
+		Utilisateur utilisateur = utilisateurService.recupUser(id);
+		return annonceService.getAnnonceByUti(utilisateur);
 	}
 
 	@PostMapping("annonce")
