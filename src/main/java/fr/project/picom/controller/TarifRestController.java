@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fr.project.picom.dto.TarifDto;
 import fr.project.picom.model.Tarif;
+import fr.project.picom.model.TrancheHoraire;
+import fr.project.picom.model.Zone;
 import fr.project.picom.service.AdministrateurService;
 import fr.project.picom.service.TarifService;
 import fr.project.picom.service.TrancheHoraireService;
@@ -47,6 +49,13 @@ public class TarifRestController {
 	@GetMapping("tarifs")
 	public List<Tarif> getTarifs(){
 		return tarifService.getTarifs();
+	}
+	
+	@GetMapping("montant")
+	public Tarif getTarifByThAndZone(Long idTh, Long idZone) {
+		TrancheHoraire th = trancheHoraireService.getTrancheHoraire(idTh);
+		Zone zone = zoneService.getZone(idZone);
+		return tarifService.getTarifByThAndZone(th, zone);
 	}
 	
 	

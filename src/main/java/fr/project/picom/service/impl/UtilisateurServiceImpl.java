@@ -52,7 +52,10 @@ public class UtilisateurServiceImpl implements UtilisateurService, UserDetailsSe
 
 	@Override
 	public Utilisateur recupUser(Long id) {
-		return utilisateurDao.findById(id).orElse(null);
+		return utilisateurDao.findById(id).orElse(null);}
+		
+	public Utilisateur getUtilisateurByEmail(String email) {
+		return utilisateurDao.findByEmail(email);
 	}
 
 	

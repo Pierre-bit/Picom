@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 import fr.project.picom.dao.TarifDao;
 import fr.project.picom.exception.ElementNonTrouveException;
 import fr.project.picom.model.Tarif;
+import fr.project.picom.model.TrancheHoraire;
+import fr.project.picom.model.Zone;
 import fr.project.picom.service.TarifService;
 import lombok.AllArgsConstructor;
 
@@ -32,4 +34,8 @@ public class TarifServiceImpl implements TarifService {
 		return tarifDao.save(tarif);
 	}
 
+	@Override
+	public Tarif getTarifByThAndZone(TrancheHoraire th, Zone zone) {
+		return tarifDao.findByTrancheHoraireAndZone(th, zone);
+	}
 }

@@ -29,8 +29,7 @@ public class SecurityConfiguration {
 				.authenticationManager(new CustomAuthentificationManager(userDetailsService, passwordEncoder))
 				.formLogin().successHandler(authenticationSuccessHandler())
 				.failureHandler(authenticationFailureHandler()).loginProcessingUrl("/login").and().logout()
-				.logoutSuccessHandler(logoutSuccessHandler()).logoutUrl("/deconnexion")
-				.logoutSuccessUrl("/index?notification=Au%20revoir").and()
+				.logoutSuccessHandler(logoutSuccessHandler()).and()
 				// Pour la console H2 (à ne pas utiliser en prod)
 				.headers().frameOptions().disable();
 
@@ -46,6 +45,7 @@ public class SecurityConfiguration {
 	AuthenticationSuccessHandler authenticationSuccessHandler() {
 		return new CustomAuthentificationSuccessHandler();
 	}
+
 	@Bean
 	LogoutSuccessHandler logoutSuccessHandler() {
 		return new CustomLogoutSuccessHandler();
