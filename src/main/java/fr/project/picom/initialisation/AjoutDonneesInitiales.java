@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +17,7 @@ import fr.project.picom.dao.AnnonceDao;
 import fr.project.picom.dao.ArretDao;
 import fr.project.picom.dao.DiffusionDao;
 import fr.project.picom.dao.TrancheHoraireDao;
+import fr.project.picom.dao.UtilisateurDao;
 import fr.project.picom.dao.ZoneDao;
 import fr.project.picom.model.Administrateur;
 import fr.project.picom.model.Annonce;
@@ -41,6 +41,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final AdministrateurService administrateurService;
 	private final AnnonceDao annonceDao;
 	private final DiffusionDao diffusionDao;
+	private final UtilisateurDao utilisateurDao;
 
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
@@ -50,8 +51,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		ajouterZones();
 		ajouterArret();
 		ajouterTranchesHoraires();
-		ajouterClient();
-		ajouterAdmin();
+		ajouterUtilisateur();
 		ajouterAnnonce();
 		ajouterDiffusion();
 	}
@@ -71,19 +71,6 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 
 	private void ajouterAnnonce() {
 		if (annonceDao.count() == 0) {
-			List<Integer> listZones = new ArrayList<>();
-			for (int i = 0; i < 6; i++) {
-				for (int j = 0; j < 5; j++) {
-					listZones.add(j);
-				}
-			}
-
-			List<Integer> listTrancheHoraire = new ArrayList<>();
-			for (int i = 0; i < 6; i++) {
-				for (int j = 0; j < 5; j++) {
-					listTrancheHoraire.add(j);
-				}
-			}
 			List<Zone> zones = zoneDao.findAll();
 			List<TrancheHoraire> trancheH = trancheHoraireDao.findAll();
 
@@ -105,7 +92,6 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 
 			}
 		}
-
 	}
 
 	private void ajouterAdmin() {
@@ -117,14 +103,23 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		administrateurService.enregistrerAdministrateur(admin);
 	}
 
-	private void ajouterClient() {
-		Client client = new Client();
-		client.setNom(faker.name().lastName());
-		client.setPrenom(faker.name().firstName());
-		client.setEmail("client1@orsys.fr");
-		client.setMotDePasse("12345678");
-		client.setNumeroDeTelephone(faker.phoneNumber().cellPhone());
-		clientService.enregistrerClient(client);
+	private void ajouterUtilisateur() {
+		if (utilisateurDao.count() == 0) {
+			Administrateur admin = new Administrateur();
+			admin.setNom(faker.name().lastName());
+			admin.setPrenom(faker.name().firstName());
+			admin.setEmail("admin1@orsys.fr");
+			admin.setMotDePasse("12345678");
+			administrateurService.enregistrerAdministrateur(admin);
+
+			Client client = new Client();
+			client.setNom(faker.name().lastName());
+			client.setPrenom(faker.name().firstName());
+			client.setEmail("client1@orsys.fr");
+			client.setMotDePasse("12345678");
+			client.setNumeroDeTelephone(faker.phoneNumber().cellPhone());
+			clientService.enregistrerClient(client);
+		}
 	}
 
 	private void ajouterTranchesHoraires() {
