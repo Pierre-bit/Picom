@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
-import java.util.random.RandomGenerator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -18,6 +17,7 @@ import fr.project.picom.dao.AnnonceDao;
 import fr.project.picom.dao.ArretDao;
 import fr.project.picom.dao.DiffusionDao;
 import fr.project.picom.dao.TrancheHoraireDao;
+import fr.project.picom.dao.UtilisateurDao;
 import fr.project.picom.dao.ZoneDao;
 import fr.project.picom.model.Administrateur;
 import fr.project.picom.model.Annonce;
@@ -41,6 +41,7 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 	private final AdministrateurService administrateurService;
 	private final AnnonceDao annonceDao;
 	private final DiffusionDao diffusionDao;
+	private final UtilisateurDao utilisateurDao;
 
 	@Autowired
 	private static Faker faker = new Faker(new Locale("fr-FR"));
@@ -50,79 +51,66 @@ public class AjoutDonneesInitiales implements CommandLineRunner {
 		ajouterZones();
 		ajouterArret();
 		ajouterTranchesHoraires();
-		ajouterClient();
-		ajouterAdmin();
+		ajouterUtilisateur();
 		ajouterAnnonce();
 		ajouterDiffusion();
 	}
 
 	private void ajouterDiffusion() {
-		for(int i = 1 ; i <= 3 ; i++)
-		{
-			Diffusion diff = new Diffusion();
-			diff.setDateHeureDiffusion(LocalDateTime.now());
-			diff.setAnnonce(annonceDao.findById((long) i).get());
-			diff.setArret(arretDao.findById((long) i).get());
-			diffusionDao.save(diff);
+		if (diffusionDao.count() == 0) {
+			for (int i = 1; i <= 3; i++) {
+				Diffusion diff = new Diffusion();
+				diff.setDateHeureDiffusion(LocalDateTime.now());
+				diff.setAnnonce(annonceDao.findById((long) i).get());
+				diff.setArret(arretDao.findById((long) i).get());
+				diffusionDao.save(diff);
+			}
 		}
-		
 	}
 
 	private void ajouterAnnonce() {
-		List<Integer> listZones = new ArrayList<>();
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 5; j++) {
-				listZones.add(j);
+		if (diffusionDao.count() == 0) {
+			List<Zone> zones = zoneDao.findAll();
+			List<TrancheHoraire> trancheH = trancheHoraireDao.findAll();
+
+			for (int i = 0; i < 5; i++) {
+
+				Annonce annonce = new Annonce();
+				annonce.setDateHeureCreation(LocalDateTime.now());
+				annonce.setDateHeureDebut(LocalDateTime.now());
+				annonce.setContenu(faker.commerce().productName());
+				annonce.setNumeroCarte(faker.finance().creditCard());
+				annonce.setAnneeExpiration(2000 + i);
+				annonce.setMoisExpiration((byte) (Math.random() * (12 - 1 + 1) + 1));
+				annonce.setCryptogramme("470" + i);
+				annonce.setMontantRegleEnEuros((Math.random() * (999 - 001 + 1) + 1));
+				annonce.setClient(clientService.recupererClient(1L));
+				annonce.setZones(zones);
+				annonce.setTranchesHoraires(trancheH);
+				annonceDao.save(annonce);
+
 			}
 		}
-		
-		List<Integer> listTrancheHoraire = new ArrayList<>();
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 5; j++) {
-				listTrancheHoraire.add(j);
-			}
-		}
-		List<Zone> zones = zoneDao.findAll();
-		List<TrancheHoraire> trancheH = trancheHoraireDao.findAll();
-		
-		for (int i = 0 ; i<5 ; i++)
-		{
-			
-			Annonce annonce = new Annonce();
-			annonce.setDateHeureCreation(LocalDateTime.now());
-			annonce.setDateHeureDebut(LocalDateTime.now());
-			annonce.setContenu(faker.commerce().productName());
-			annonce.setNumeroCarte(faker.finance().creditCard());
-			annonce.setAnneeExpiration(2000+i);
-			annonce.setMoisExpiration((byte)(Math.random()*(12-1+1)+1));
-			annonce.setCryptogramme("470"+i);
-			annonce.setMontantRegleEnEuros((Math.random()*(999-001+1)+1));
-			annonce.setClient(clientService.recupererClient(1L));
-			annonce.setZones(zones);
-			annonce.setTranchesHoraires(trancheH);
-			annonceDao.save(annonce);
-	
-		}
-		
-	}
-	
-	private void ajouterAdmin() {
-		Administrateur admin = new Administrateur();
-		admin.setNom(faker.name().lastName());
-		admin.setPrenom(faker.name().firstName());
-		admin.setEmail("admin1@orsys.fr");
-		admin.setMotDePasse("12345678");
-		administrateurService.enregistrerAdministrateur(admin);
+
 	}
 
-	private void ajouterClient() {
-		Client client = new Client();
-		client.setNom(faker.name().lastName());
-		client.setPrenom(faker.name().firstName());
-		client.setEmail("client1@orsys.fr");
-		client.setMotDePasse("12345678");
-		client.setNumeroDeTelephone(faker.phoneNumber().cellPhone());
-		clientService.enregistrerClient(client);
+	private void ajouterUtilisateur() {
+		if (utilisateurDao.count() == 0) {
+			Administrateur admin = new Administrateur();
+			admin.setNom(faker.name().lastName());
+			admin.setPrenom(faker.name().firstName());
+			admin.setEmail("admin1@orsys.fr");
+			admin.setMotDePasse("12345678");
+			administrateurService.enregistrerAdministrateur(admin);
+
+			Client client = new Client();
+			client.setNom(faker.name().lastName());
+			client.setPrenom(faker.name().firstName());
+			client.setEmail("client1@orsys.fr");
+			client.setMotDePasse("12345678");
+			client.setNumeroDeTelephone(faker.phoneNumber().cellPhone());
+			clientService.enregistrerClient(client);
+		}
 	}
 
 	private void ajouterTranchesHoraires() {
